@@ -1,0 +1,13 @@
+{
+  "name": "rpg-mv-skeleton",
+  "version": "1.0.0",
+  "description": "Tool for building RPG Maker MV/MZ games from a CLI.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:android": "node --experimental-modules \"build/android/android-build.js\"",
+    "build:windows": "node --experimental-modules \"build/windows/windows-build.js\""
+  },
+  "author": "Daniel Rogowski",
+  "license": "Unlicense",
+  "type": "module"
+}
