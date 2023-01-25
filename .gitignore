@@ -1,4 +1,12 @@
+# IntelliJ stuff
 .idea/
+
+# JavaScript stuff
 node_modules/
 
+# Generated apks & zips
 build/**/output/
+
+# Temporary directories
+build/android/cordova-temp
+build/windows/wrapper/www/
