@@ -14,6 +14,8 @@ const gameMetadata = {
 gameMetadata.android = {
     appName: gameMetadata.title,
     appVersion: gameMetadata.version,
+
+    // Change this to your own address, if you want to publish the APK
     packageName: "com.github.danrog303.rpgmvskel"
 }
 
