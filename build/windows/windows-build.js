@@ -28,7 +28,7 @@ async function buildWindows() {
     const zipOutputFileName = `${gameMetadata.code}-${gameMetadata.version}-win.zip`;
     const zipOutputDir = path.join(__dirname, "output");
     const zipOutputPath = path.join(zipOutputDir, zipOutputFileName);
-    fse.mkdirsSync(zipOutputDir);
+    fse.mkdirsSync(zipOutputDir, {});
     zipper.sync.zip(zipInputPath).compress().save(zipOutputPath);
 
     console.log("\nWindows release has been compiled successfully.");
