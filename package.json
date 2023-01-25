@@ -9,5 +9,10 @@
   },
   "author": "Daniel Rogowski",
   "license": "Unlicense",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "fs-extra": "^11.1.0",
+    "mapreplace": "^1.0.3",
+    "zip-local": "^0.3.5"
+  }
 }
