@@ -1,0 +1,56 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    env:
+      BEEVELOP_CORDOVA_VERSION: v2023.01.1
+      NODE_VERSION: 14
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install JS dependencies
+        run: npm ci
+
+      - name: Try to restore Cordova cache
+        id: cache-docker-cordova
+        uses: actions/cache@v3
+        with:
+          path: ci/cache/docker/beevelop
+          key: cache-docker-beevelop-cordova
+
+      - name: Update Cordova image cache if cache miss
+        if: steps.cache-docker-cordova.outputs.cache-hit != 'true'
+        run: >-
+          docker pull beevelop/cordova:$BEEVELOP_CORDOVA_VERSION && mkdir -p
+          ci/cache/docker/beevelop && docker image save
+          beevelop/cordova:$BEEVELOP_CORDOVA_VERSION --output
+          ./ci/cache/docker/beevelop/cordova.tar
+
+      - name: Use Cordova image cache if cache hit
+        if: steps.cache-docker-cordova.outputs.cache-hit == 'true'
+        run: docker image load --input ./ci/cache/docker/beevelop/cordova.tar
+
+      - name: Build Docker image
+        run: docker build -t local .
+
+      - name: Build Android and Windows releases
+        run: |
+          mkdir output
+          docker run -t -v $(pwd)/:/opt/rpgmvskel local /bin/sh -c "npm run build:android && npm run build:windows"
+
+      - name: Create release on Github (if tag pushed)
+        uses: ncipollo/release-action@v1
+        if: startsWith(github.ref, 'refs/tags')
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: build/android/output/*.apk,build/windows/output/*.zip

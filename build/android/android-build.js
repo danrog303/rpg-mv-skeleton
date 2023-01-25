@@ -54,7 +54,7 @@ async function buildAndroid() {
     console.log("Creating output directory and copying generated APK to /build/android/output");
     const outputDirPath = path.join(__dirname, "output");
     const outputFilePath = path.join(outputDirPath, `${gameMetadata.code}-${gameMetadata.version}.apk`);
-    const generatedApkPath = path.join(__dirname, "platforms", "android", "app", "build", "outputs",
+    const generatedApkPath = path.join(cordovaTempDir, "platforms", "android", "app", "build", "outputs",
         "apk", "release", "app-release-unsigned.apk");
     fse.mkdirsSync(outputDirPath, {});
     fse.copySync(generatedApkPath, outputFilePath);
