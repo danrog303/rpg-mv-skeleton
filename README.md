@@ -4,6 +4,9 @@
 ![License - Unlicense](https://img.shields.io/badge/license-Unlicense-blue)
 > Template repository for versioning RPG Maker MV/MZ games with automatic release building.
 
+# Warning! Work in progress
+This repository is not yet usable. Work in progress.
+
 # Why was this project created?
 Some time ago I started working on a game in RPG Maker. I wanted to store the game on my private GitHub and found out that there is 
 no automatic build system for RPG Maker. Since I didn't want to re-build the 
